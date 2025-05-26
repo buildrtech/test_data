@@ -95,7 +95,7 @@ module TestData
     end
 
     def database_yaml
-      YAML.load_file(database_yaml_full_path)
+      YAML.load_file(database_yaml_full_path, aliases: true)
     end
 
     def database_name
