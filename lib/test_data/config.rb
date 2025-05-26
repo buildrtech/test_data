@@ -1,5 +1,3 @@
-require_relative "./yaml_loader"
-
 module TestData
   def self.config(pwd: Rails.root, &blk)
     @configuration ||= Configuration.new(pwd: pwd)
@@ -24,7 +22,7 @@ module TestData
     def non_test_data_tables
       (@non_test_data_tables + [
         ActiveRecord::Base.connection.schema_migration.table_name,
-        ActiveRecord::InternalMetadata.table_name
+        TestData.metadata.table_name
       ]).uniq
     end
 
@@ -97,7 +95,7 @@ module TestData
     end
 
     def database_yaml
-      YAMLLoader.load_file(database_yaml_full_path)
+      YAML.load_file(database_yaml_full_path)
     end
 
     def database_name
